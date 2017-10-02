@@ -38,15 +38,20 @@ public class CustomersApplication {
                         "Name [name=" + customer.getName() + " , address=" + customer.getAddress() + ", city=" + customer.getCity() + ", state=" + customer.getCity()
                                 + ", zipcode=" + customer.getZipcode() +"]");
             }
+
+            //
+
+
         } catch (FileSystemNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
         } finally {
             if (br != null) {
                 try {
                     br.close();
-                } catch (IOException e) {
+                }
+                catch (IOException e) {
                     e.printStackTrace();
 
 
