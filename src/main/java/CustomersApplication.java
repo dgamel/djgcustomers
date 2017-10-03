@@ -2,10 +2,14 @@ import com.model.Customer;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.FileSystemNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
+
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
 
 
 import org.codehaus.jackson.map.ObjectMapper;
@@ -36,27 +40,45 @@ public class CustomersApplication {
                 customer.setZipcode(details[4]);
                 customerList.add(customer);
             }
-
-            for(Customer customer: customerList){
-                System.out.println(
-                        "Name [name=" + customer.getName() + " , address=" + customer.getAddress() + ", city=" + customer.getCity() + ", state=" + customer.getCity()
-                                + ", zipcode=" + customer.getZipcode() +"]");
-            }
-
-            // POJO to Json string
-
             ObjectMapper mapper = new ObjectMapper();
 
+            List<JSONObject>list= new ArrayList<>();
 
-            String jsonString = mapper.writeValueAsString(customerList);
+            for(Customer customer: customerList) {
+                System.out.println(
+                        "Name [name=" + customer.getName() + " , address=" + customer.getAddress() + ", city=" + customer.getCity() + ", state=" + customer.getState()
+                                + ", zipcode=" + customer.getZipcode() + "]");
 
-            System.out.println(jsonString);
+                // POJO to Json string
+
+                //String jsonString = mapper.writeValueAsString(customerList);
+                //System.out.println(jsonString);
+
+                // output string to file
+
+                JSONObject obj = new JSONObject();
+                obj.put("name", customer.getName());
+                obj.put("address", customer.getAddress());
+                obj.put("city", customer.getCity());
+                obj.put("state", customer.getState());
+                obj.put("zipcode", customer.getZipcode());
+
+
+                list.add(obj);
 
 
 
+            }
+            try (FileWriter file = new FileWriter("test.json")) {
 
+                file.write(list.toString());
+                file.flush();
 
-        } catch (FileSystemNotFoundException|IOException e) {
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+             catch (FileSystemNotFoundException|IOException e) {
                 e.printStackTrace();
         } finally {
             if (br != null) {
