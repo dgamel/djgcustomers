@@ -7,6 +7,10 @@ import java.nio.file.FileSystemNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 
+
+import org.codehaus.jackson.map.ObjectMapper;
+
+
 /**
  * Created by djg03 on 9/18/17.git
  */
@@ -15,7 +19,7 @@ public class CustomersApplication {
 
         String txtFile = "/Users/djg03/Documents/customers.csv";
         BufferedReader br = null;
-        String line = "";
+        String line;
         String txtSplitBy = ",";
 
         try {
@@ -23,7 +27,7 @@ public class CustomersApplication {
             br = new BufferedReader(new FileReader(txtFile));
             List<Customer> customerList = new ArrayList<>();
             while ((line = br.readLine()) != null) {
-                String[] details = line.split(",");
+                String[] details = line.split(txtSplitBy);
                 Customer customer = new Customer();
                 customer.setName(details[0]);
                 customer.setAddress(details[1]);
@@ -39,12 +43,20 @@ public class CustomersApplication {
                                 + ", zipcode=" + customer.getZipcode() +"]");
             }
 
-            //
+            // POJO to Json string
+
+            ObjectMapper mapper = new ObjectMapper();
 
 
-        } catch (FileSystemNotFoundException e) {
-                e.printStackTrace();
-            } catch (IOException e) {
+            String jsonString = mapper.writeValueAsString(customerList);
+
+            System.out.println(jsonString);
+
+
+
+
+
+        } catch (FileSystemNotFoundException|IOException e) {
                 e.printStackTrace();
         } finally {
             if (br != null) {
