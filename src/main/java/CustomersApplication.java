@@ -8,7 +8,6 @@ import java.nio.file.FileSystemNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
 
@@ -19,8 +18,21 @@ import org.codehaus.jackson.map.ObjectMapper;
  * Created by djg03 on 9/18/17.git
  */
 public class CustomersApplication {
+
+
+    /**
+     * Creating a list of customers from csv file
+     * Reading data from csv and putting it into a pojo and creating a customerList from the pojo
+     * Printing all the details of  each customer from customerList on the console using system,out.println
+     * Creating a json object list and adding customer details to the json
+     * Writing all the json objects to a file
+     *
+     * @param args
+     */
     public static void main(String[] args) {
 
+        FileReaderAndPojoCreator fileReaderAndPojoCreator = new FileReaderAndPojoCreator();
+        fileReaderAndPojoCreator.getCustomerList("/Users/djg03/Documents/customers.csv");
         String txtFile = "/Users/djg03/Documents/customers.csv";
         BufferedReader br = null;
         String line;
@@ -42,9 +54,9 @@ public class CustomersApplication {
             }
             ObjectMapper mapper = new ObjectMapper();
 
-            List<JSONObject>list= new ArrayList<>();
+            List<JSONObject> list = new ArrayList<>();
 
-            for(Customer customer: customerList) {
+            for (Customer customer : customerList) {
                 System.out.println(
                         "Name [name=" + customer.getName() + " , address=" + customer.getAddress() + ", city=" + customer.getCity() + ", state=" + customer.getState()
                                 + ", zipcode=" + customer.getZipcode() + "]");
@@ -67,7 +79,6 @@ public class CustomersApplication {
                 list.add(obj);
 
 
-
             }
             try (FileWriter file = new FileWriter("test.json")) {
 
@@ -77,15 +88,13 @@ public class CustomersApplication {
             } catch (IOException e) {
                 e.printStackTrace();
             }
-        }
-             catch (FileSystemNotFoundException|IOException e) {
-                e.printStackTrace();
+        } catch (FileSystemNotFoundException | IOException e) {
+            e.printStackTrace();
         } finally {
             if (br != null) {
                 try {
                     br.close();
-                }
-                catch (IOException e) {
+                } catch (IOException e) {
                     e.printStackTrace();
 
 
@@ -97,4 +106,23 @@ public class CustomersApplication {
 
     }
 }
+
+
+
+            class FileReaderAndPojoCreator {
+
+                public List<Customer> getCustomerList(String fileName) {
+                    return null;
+                }
+
+                private Customer getCustomerFromEachLineInFile(String line) {
+                    return null;
+                }
+
+                private List<String> getAllLinesFromCsvFile(String fileName) {
+                    return null;
+                }
+            }
+
+
 
