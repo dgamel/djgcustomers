@@ -19,7 +19,6 @@ import org.codehaus.jackson.map.ObjectMapper;
  */
 public class CustomersApplication {
 
-
     /**
      * Creating a list of customers from csv file
      * Reading data from csv and putting it into a pojo and creating a customerList from the pojo
@@ -31,8 +30,26 @@ public class CustomersApplication {
      */
     public static void main(String[] args) {
 
-        FileReaderAndPojoCreator fileReaderAndPojoCreator = new FileReaderAndPojoCreator();
-        fileReaderAndPojoCreator.getCustomerList("/Users/djg03/Documents/customers.csv");
+        CustomersApplication custApp = new CustomersApplication();
+        custApp.processFile();
+
+
+//        CustomersApplication getCustomerList = new CustomersApplication();
+//            getCustomerList.processFile();
+
+
+
+
+
+    }
+
+    public static void getCustomerList(String fileName){
+
+    }
+
+    public void processFile() {
+
+        CustomersApplication.getCustomerList("/Users/djg03/Documents/customers.csv");
         String txtFile = "/Users/djg03/Documents/customers.csv";
         BufferedReader br = null;
         String line;
@@ -105,24 +122,13 @@ public class CustomersApplication {
         }
 
     }
+
+
 }
 
 
 
-            class FileReaderAndPojoCreator {
 
-                public List<Customer> getCustomerList(String fileName) {
-                    return null;
-                }
-
-                private Customer getCustomerFromEachLineInFile(String line) {
-                    return null;
-                }
-
-                private List<String> getAllLinesFromCsvFile(String fileName) {
-                    return null;
-                }
-            }
 
 
 
